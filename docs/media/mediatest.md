@@ -3,7 +3,7 @@
 ## images
 
 ### md
-![blob](media/images/images.jpeg)
+![blob](images/images.jpeg)
 
 ### HTML
 <img src="images/images.jpeg">blob</img>
