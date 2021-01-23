@@ -10,10 +10,10 @@
 
 ### HTML
 
-<img src="images/images.jpeg"></img>
-<img src="images/download.jpeg"></img>
-<img src="images/img1.jpeg"></img>
-<img src="images/img2.jpeg"></img>
+<img src="images/images.jpeg"/>
+<img src="images/download.jpeg"/>
+<img src="images/img1.jpeg"/>
+<img src="images/img2.jpeg"/>
 
 ## audio
 
