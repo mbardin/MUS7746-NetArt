@@ -24,6 +24,7 @@
 <audio controls src="audio/DSHS_STEM_Door opening and closing..wav"></audio>
 <audio controls src="audio/DSHS_STEM_DOOR_CLOSING.WAV"></audio>
 <audio controls src="audio/DSHS_STEM_FLUSH.wav"></audio>
+<audio controls src="/audio/DSHS_STEM_door,opening.wav"></audio>
 <audio controls src="audio/dshs_stem_ice in cup.wav"></audio>
 <audio controls src="audio/DSHS_STEM_KEYS.wav"></audio>
 
