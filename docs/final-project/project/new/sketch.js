@@ -1,3 +1,15 @@
+//to work with the networking
+let Hub = require('hub');
+let hub = new Hub();
+hub.init();
+hub.user.name = "controller";
+hub.user.pitch = 55;
+hub.user.location = {
+  x: 0.5,
+  y: 0.5
+}
+hub.register();
+
 //Global Variables
 let menu, sendButton, userState, reverb, PPDel, vib, distort, scaledTime;
 let possibleNotes = [
@@ -102,22 +114,22 @@ function randomColor() {
 //these functions are used to adjust the parameters of the effect chain/sequence melody/synth. will be tied to object values.
 function changeVerbTime() {
   //map paramater to object here
-  startTimer(); //restarts countdown timer
+  // startTimer(); //restarts countdown timer
 }
 
 function changeDelayTime() {
   //map paramater to object here
-  startTimer(); //restarts countdown timer
+  //  startTimer(); //restarts countdown timer
 }
 
 function changeDistortion() {
   //map paramater to object here
-  startTimer(); //restarts countdown timer
+  // startTimer(); //restarts countdown timer
 }
 
 function changeVibratoSpeed() {
   //map paramater to object here
-  startTimer(); //restarts countdown timer
+  // startTimer(); //restarts countdown timer
 }
 let erodeToggle = false;
 function erodeMelody() {
@@ -148,11 +160,11 @@ let muteToggle = false;
 document.querySelector("#mute").addEventListener("click", () => {
   if (muteToggle) {
     louder();
-    startTimer();
+    //   startTimer();
     muteToggle = false;
   } else {
     shutUp();
-    startTimer();
+    //  startTimer();
     muteToggle = true;
   }
 });
@@ -160,12 +172,12 @@ document.querySelector("#mute").addEventListener("click", () => {
 function shutUp() {
   synth.volume.exponentialRampToValueAtTime(-60, "+5");
   document.getElementById("mute").textContent = "UNMUTE";
-  startTimer();
+  //  startTimer();
 }
 function louder() {
   synth.volume.exponentialRampToValueAtTime(0, "+5");
   document.getElementById("mute").textContent = "MUTE";
-  startTimer();
+  // startTimer();
 }
 
 function addNotes(note) {
@@ -176,7 +188,7 @@ function addNotes(note) {
     console.log(`You added the note ${note} to the melody.`);
     console.log(`The melody is now: [${melody}]`);
     seq();
-    startTimer();
+    // startTimer();
   }
 }
 
@@ -186,7 +198,7 @@ function removeNotes() {
   console.log(`You removed a note from the melody.`);
   console.log(`The melody is now: [${melody}]`);
   seq();
-  startTimer();
+  //startTimer();
 }
 
 function changeSynthOsc(type) {
@@ -194,7 +206,7 @@ function changeSynthOsc(type) {
   if (oscTypes.includes(type)) {
     synth.oscillator.type = type;
     console.log(`you have set the synth type to ${type}`);
-    startTimer();
+    // startTimer();
   } else {
     console.log(
       `Unable to change synth type to ${type}. Please select from: [${oscTypes}`
@@ -274,40 +286,40 @@ function randomizePositions() {
 }
 
 //counttimer to begin returning to original state
-document.getElementById("timer").innerHTML = 008 + ":" + 00;
-startTimer(); //test, recall to reset timer
+// document.getElementById("timer").innerHTML = 008 + ":" + 00;
+// startTimer(); //test, recall to reset timer
 
-function startTimer() {
-  let presentTime = document.getElementById("timer").innerHTML;
-  let timeArray = presentTime.split(/[:]+/);
-  let m = timeArray[0];
-  let s = checkSecond(timeArray[1] - 1);
-  if (s == 59) {
-    m = m - 1;
-  }
-  if (m < 0 && s < 0) {
-    //begins tranform back to default state
-    erodeToggle = true;
-    erodeMelody();
-    defaultFX();
-  } else {
-    erodeToggle = false;
-  }
+// function startTimer() {
+//   let presentTime = document.getElementById("timer").innerHTML;
+//   let timeArray = presentTime.split(/[:]+/);
+//   let m = timeArray[0];
+//   let s = checkSecond(timeArray[1] - 1);
+//   if (s == 59) {
+//     m = m - 1;
+//   }
+//   if (m < 0 && s < 0) {
+//     //begins tranform back to default state
+//     erodeToggle = true;
+//     erodeMelody();
+//     defaultFX();
+//   } else {
+//     erodeToggle = false;
+//   }
 
-  document.getElementById("timer").innerHTML = m + ":" + s;
-  //console.log(`${m}:${s}`);
-  setTimeout(startTimer, 1000); //display time on the screen? probably not.
-}
+//   document.getElementById("timer").innerHTML = m + ":" + s;
+//   //console.log(`${m}:${s}`);
+//   setTimeout(startTimer, 1000); //display time on the screen? probably not.
+// }
 
-function checkSecond(sec) {
-  if (sec < 10 && sec >= 0) {
-    sec = "0" + sec;
-  } // add zero in front of numbers < 10
-  if (sec < 0) {
-    sec = "59";
-  }
-  return sec;
-}
+// function checkSecond(sec) {
+//   if (sec < 10 && sec >= 0) {
+//     sec = "0" + sec;
+//   } // add zero in front of numbers < 10
+//   if (sec < 0) {
+//     sec = "59";
+//   }
+//   return sec;
+// }
 
 //for the instructions interface screen
 

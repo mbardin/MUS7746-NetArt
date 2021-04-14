@@ -177,6 +177,92 @@ body {
   cursor: pointer; /* Add a pointer on hover */
 }
 
+/* for fading out things like the userinterface */
+.fade-out {
+  animation: fadeOut ease 25s;
+  -webkit-animation: fadeOut ease 25s;
+  -moz-animation: fadeOut ease 25s;
+  -o-animation: fadeOut ease 25s;
+  -ms-animation: fadeOut ease 25s;
+}
+@keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+@-moz-keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+@-o-keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+@-ms-keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+}
+
+/*  for fading in things like the user interface  */
+  .fade-in-image {
+  animation: fadeIn 5s;
+  -webkit-animation: fadeIn 5s;
+  -moz-animation: fadeIn 5s;
+  -o-animation: fadeIn 5s;
+  -ms-animation: fadeIn 5s;
+}
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+  
+  
 .viewModeText {
   display: none;
 }
@@ -250,36 +336,4 @@ body {
 
 #timer {
   display: none;
-}
-
-.fade-in-image {
-  animation: fadeIn 5s;
-  -webkit-animation: fadeIn 5s;
-  -moz-animation: fadeIn 5s;
-  -o-animation: fadeIn 5s;
-  -ms-animation: fadeIn 5s;
-}
-@keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
-}
-
-@-moz-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
-}
-
-@-webkit-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
-}
-
-@-o-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
-}
-
-@-ms-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
 }
