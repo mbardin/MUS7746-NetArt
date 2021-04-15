@@ -1,11 +1,12 @@
 body {
   background-color: rgb(255, 223, 186);
   font-family: system-ui, fantasy, monospace, sans-serif;
-  animation: fadebackground 600s infinite;
+  animation: fadebackground 1000s infinite;
 }
 @keyframes fadebackground {
   from {background-color: rgb(255, 223, 186);}
   to {background-color: #6c7fa9;}
+  to {background-color: rgb(255, 223, 186);}
 }
 
 
