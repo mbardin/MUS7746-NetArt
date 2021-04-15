@@ -105,6 +105,8 @@ body {
   left: 1%
 }
 
+
+
 .btn-group button { 
 /*  better positioning? bottom right?  */
   cursor: pointer; /* Pointer/hand icon */
@@ -226,7 +228,7 @@ body {
     opacity:1;
   }
   100% {
-    opacity:0;
+    opacity:0;}
 }
 
 /*  for fading in things like the user interface  */
@@ -268,7 +270,7 @@ body {
 }
 
 .square {
-  display: none;
+/*   display: none; */
   position: absolute;
   top:50px;
   right: 30px;
@@ -276,10 +278,11 @@ body {
   width: 50px;
   margin-top: 25px;
   background-color: rgb(255, 179, 186);
+ 
 }
 
 .circle {
-  display: none;
+/*   display: none; */
   position: absolute;
   right: 30px;
   top:150px;
@@ -288,10 +291,11 @@ body {
   margin-top: 25px;
   background-color: rgb(186, 225, 255);
   border-radius: 50%;
+ 
 }
 
 .parallelogram {
-  display: none;
+/*   display: none; */
   position: absolute;
   margin-top: 25px;
   right: 30px;
@@ -300,10 +304,11 @@ body {
   height: 50px;
   transform: skew(20deg);
   background: #b7b5fe;
+ 
 }
 
 .triangle-up {
-  display: none;
+/*   display: none; */
   position: absolute;
   right: 30px;
   top:350px;
@@ -313,9 +318,10 @@ body {
   border-left: 25px solid transparent;
   border-right: 25px solid transparent;
   border-bottom: 50px solid #ff6961;
+ 
 }
 .line {
-  display: none;
+/*   display: none; */
   position: absolute;
   right: 40px;
   top:450px;
@@ -324,16 +330,28 @@ body {
   transform: skew(-35deg);
   margin-top: 25px;
   margin-bottom: 25px;
+ 
 }
 
 .menuline {
-  display: none;
+/*   display: none; */
   position: absolute;
   right: 100px;
   border-left: 6px solid gray;
   height: 500px;
+  opacity: 1;
+  
 }
 
 #timer {
   display: none;
+}
+
+#placeTools {
+  opacity: 1;
+  transition: opacity 2.5s;
+}
+
+#placeTools.hidden {
+  opacity: 0;
 }

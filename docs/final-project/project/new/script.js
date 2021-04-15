@@ -1,15 +1,3 @@
-//to work with the networking
-let Hub = require('hub');
-let hub = new Hub();
-hub.init();
-hub.user.name = "controller";
-hub.user.pitch = 55;
-hub.user.location = {
-  x: 0.5,
-  y: 0.5
-}
-hub.register();
-
 //Global Variables
 let menu, sendButton, userState, reverb, PPDel, vib, distort, scaledTime;
 let possibleNotes = [
@@ -438,40 +426,44 @@ let menuDivider = document.getElementById("menuLine");
 function changeApperance() {
   if (userState === "Place") {
     viewModeScreenText.style.display = "none";
-    TypeBox.style.display = "block";
-    menuSqu.style.display = "block";
-    menuCir.style.display = "block";
-    menuParallel.style.display = "block";
-    menuTri.style.display = "block";
-    menuLine.style.display = "block";
-    menuDivider.style.display = "block";
+    document.getElementById("placeTools").classList.remove("hidden");
+    // TypeBox.style.display = "block";
+    // menuSqu.style.display = "block";
+    // menuCir.style.display = "block";
+    // menuParallel.style.display = "block";
+    // menuTri.style.display = "block";
+    // menuLine.style.display = "block";
+    // menuDivider.style.display = "block";
   } else if (userState === "Edit") {
     viewModeScreenText.style.display = "none";
-    TypeBox.style.display = "none";
-    menuSqu.style.display = "none";
-    menuCir.style.display = "none";
-    menuParallel.style.display = "none";
-    menuTri.style.display = "none";
-    menuLine.style.display = "none";
-    menuDivider.style.display = "none";
+    document.getElementById("placeTools").classList.add("hidden");
+    // TypeBox.style.display = "none";
+    // menuSqu.style.display = "none";
+    // menuCir.style.display = "none";
+    // menuParallel.style.display = "none";
+    // menuTri.style.display = "none";
+    // menuLine.style.display = "none";
+    // menuDivider.style.display = "none";
   } else if (userState === "View") {
     viewModeScreenText.style.display = "block";
-    TypeBox.style.display = "none";
-    menuSqu.style.display = "none";
-    menuCir.style.display = "none";
-    menuParallel.style.display = "none";
-    menuTri.style.display = "none";
-    menuLine.style.display = "none";
-    menuDivider.style.display = "none";
+    document.getElementById("placeTools").classList.add("hidden");
+    // TypeBox.style.display = "none";
+    // menuSqu.style.display = "none";
+    // menuCir.style.display = "none";
+    // menuParallel.style.display = "none";
+    // menuTri.style.display = "none";
+    // menuLine.style.display = "none";
+    // menuDivider.style.display = "none";
   } else {
     viewModeScreenText.style.display = "none";
-    TypeBox.style.display = "none";
-    menuSqu.style.display = "none";
-    menuCir.style.display = "none";
-    menuParallel.style.display = "none";
-    menuTri.style.display = "none";
-    menuLine.style.display = "none";
-    menuDivider.style.display = "none";
+    document.getElementById("placeTools").classList.add("hidden");
+    // TypeBox.style.display = "none";
+    // menuSqu.style.display = "none";
+    // menuCir.style.display = "none";
+    // menuParallel.style.display = "none";
+    // menuTri.style.display = "none";
+    // menuLine.style.display = "none";
+    // menuDivider.style.display = "none";
   }
 }
 //working with canvas overlay. may not need
