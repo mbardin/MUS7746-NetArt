@@ -100,24 +100,24 @@ function randomColor() {
 }
 
 //these functions are used to adjust the parameters of the effect chain/sequence melody/synth. will be tied to object values.
-function changeVerbTime() {
-  //map paramater to object here
-  // startTimer(); //restarts countdown timer
+function changeVerbTime(val) {
+  let newValue = map(val, 1, 255, 0, 10);
+  reverb.decay = newValue;
 }
 
-function changeDelayTime() {
-  //map paramater to object here
-  //  startTimer(); //restarts countdown timer
+function changeDelayTime(val) {
+  let newValue = map(val, 1, 255, 0, 10);
+  PPDel.delayTime.value = newValue;
 }
 
-function changeDistortion() {
-  //map paramater to object here
-  // startTimer(); //restarts countdown timer
+function changeDistortion(val) {
+  let newValue = map(val, 1, 255, 1, 32);
+  distort.bits.value = newValue;
 }
 
-function changeVibratoSpeed() {
-  //map paramater to object here
-  // startTimer(); //restarts countdown timer
+function changeVibratoSpeed(val) {
+  let newValue = map(val, 1, 255, 0, 10);
+  vib.frequency.value = newValue;
 }
 let erodeToggle = false;
 function erodeMelody() {
@@ -202,10 +202,7 @@ function changeSynthOsc(type) {
   }
 }
 
-//working out the menu
-
 //displays the text on the screen and adds it to the melody
-//everything below here has to do with the text display
 let typedText = document.querySelector("#textField");
 
 typedText.addEventListener("keyup", function (event) {
@@ -241,10 +238,11 @@ function createLetters() {
     xStart.push(l);
     ldiv.style.top = `${t + Math.sin(accum)}%`;
     ldiv.style.left = `${l}%`;
-
+    ldiv.classList.add("fadeOut");
     letterDivs.push(ldiv);
     document.getElementById("letters").appendChild(ldiv);
   });
+
   if (letterTimer) {
     clearInterval(letterTimer);
   }
@@ -269,48 +267,12 @@ function randomizePositions() {
     xStart[index] += l;
     ldiv.style.top = `${yStart[index] + Math.sin(accum) * 50}%`;
     ldiv.style.left = `${xStart[index]}%`;
+    ldiv.classList.add(".fade-out");
   });
   //console.log(Math.sin(accum));
 }
 
-//counttimer to begin returning to original state
-// document.getElementById("timer").innerHTML = 008 + ":" + 00;
-// startTimer(); //test, recall to reset timer
-
-// function startTimer() {
-//   let presentTime = document.getElementById("timer").innerHTML;
-//   let timeArray = presentTime.split(/[:]+/);
-//   let m = timeArray[0];
-//   let s = checkSecond(timeArray[1] - 1);
-//   if (s == 59) {
-//     m = m - 1;
-//   }
-//   if (m < 0 && s < 0) {
-//     //begins tranform back to default state
-//     erodeToggle = true;
-//     erodeMelody();
-//     defaultFX();
-//   } else {
-//     erodeToggle = false;
-//   }
-
-//   document.getElementById("timer").innerHTML = m + ":" + s;
-//   //console.log(`${m}:${s}`);
-//   setTimeout(startTimer, 1000); //display time on the screen? probably not.
-// }
-
-// function checkSecond(sec) {
-//   if (sec < 10 && sec >= 0) {
-//     sec = "0" + sec;
-//   } // add zero in front of numbers < 10
-//   if (sec < 0) {
-//     sec = "59";
-//   }
-//   return sec;
-// }
-
-//for the instructions interface screen
-
+//user menu button
 let btn = document.getElementById("myBtn");
 btn.onclick = () => {
   Tone.start();
@@ -335,7 +297,6 @@ function setPlace() {
     text.style.display = "block";
     view.checked = false;
     edit.checked = false;
-    typeBox.style.display = "block";
     viewText.style.display = "none";
     editText.style.display = "none";
   } else {
@@ -365,7 +326,6 @@ function setView() {
     editText.style.display = "none";
   } else {
     text.style.display = "none";
-    typeBox.style.display = "none";
   }
   changeApperance();
   seq();
@@ -390,7 +350,6 @@ function setEdit() {
     viewText.style.display = "none";
   } else {
     text.style.display = "none";
-    typeBox.style.display = "none";
   }
   changeApperance();
   seq();
@@ -427,56 +386,29 @@ function changeApperance() {
   if (userState === "Place") {
     viewModeScreenText.style.display = "none";
     document.getElementById("placeTools").classList.remove("hidden");
-    // TypeBox.style.display = "block";
-    // menuSqu.style.display = "block";
-    // menuCir.style.display = "block";
-    // menuParallel.style.display = "block";
-    // menuTri.style.display = "block";
-    // menuLine.style.display = "block";
-    // menuDivider.style.display = "block";
+    document.getElementById("textField").classList.remove("hidden");
   } else if (userState === "Edit") {
     viewModeScreenText.style.display = "none";
     document.getElementById("placeTools").classList.add("hidden");
-    // TypeBox.style.display = "none";
-    // menuSqu.style.display = "none";
-    // menuCir.style.display = "none";
-    // menuParallel.style.display = "none";
-    // menuTri.style.display = "none";
-    // menuLine.style.display = "none";
-    // menuDivider.style.display = "none";
+    document.getElementById("textField").classList.add("hidden");
   } else if (userState === "View") {
     viewModeScreenText.style.display = "block";
     document.getElementById("placeTools").classList.add("hidden");
-    // TypeBox.style.display = "none";
-    // menuSqu.style.display = "none";
-    // menuCir.style.display = "none";
-    // menuParallel.style.display = "none";
-    // menuTri.style.display = "none";
-    // menuLine.style.display = "none";
-    // menuDivider.style.display = "none";
+    document.getElementById("textField").classList.add("hidden");
   } else {
     viewModeScreenText.style.display = "none";
     document.getElementById("placeTools").classList.add("hidden");
-    // TypeBox.style.display = "none";
-    // menuSqu.style.display = "none";
-    // menuCir.style.display = "none";
-    // menuParallel.style.display = "none";
-    // menuTri.style.display = "none";
-    // menuLine.style.display = "none";
-    // menuDivider.style.display = "none";
+    document.getElementById("textField").classList.add("hidden");
   }
 }
-//working with canvas overlay. may not need
-// function on() {
-//   document.getElementById("overlay").style.display = "block";
-// }
-
-// function off() {
-//   document.getElementById("overlay").style.display = "none";
-// }
 
 function makeSquare() {
   let newSquare = document.getElementById("mySquare");
+  newSquare.addEventListener("mousover", function (event) {
+    if (userMode === "Edit") {
+      hoverMenuAppear();
+    }
+  });
   newSquare.style.backgroundColor = rgb(
     getRandomInt(0, 256),
     getRandomInt(0, 256),
@@ -486,6 +418,11 @@ function makeSquare() {
 
 function makeCircle() {
   let newCircle = document.getElementById("myCircle");
+  newCircle.addEventListener("mousover", function (event) {
+    if (userMode === "Edit") {
+      hoverMenuAppear();
+    }
+  });
   newCircle.style.backgroundColor = rgb(
     getRandomInt(0, 256),
     getRandomInt(0, 256),
@@ -495,6 +432,11 @@ function makeCircle() {
 
 function makeParallel() {
   let newParallel = document.getElementById("myParallel");
+  newParallel.addEventListener("mousover", function (event) {
+    if (userMode === "Edit") {
+      hoverMenuAppear();
+    }
+  });
   newParallel.style.backgroundColor = rgb(
     getRandomInt(0, 256),
     getRandomInt(0, 256),
@@ -504,6 +446,11 @@ function makeParallel() {
 
 function makeTri() {
   let newTri = document.getElementById("myTri");
+  newTri.addEventListener("mousover", function (event) {
+    if (userMode === "Edit") {
+      hoverMenuAppear();
+    }
+  });
   newTri.style.backgroundColor = rgb(
     getRandomInt(0, 256),
     getRandomInt(0, 256),
@@ -513,12 +460,35 @@ function makeTri() {
 
 function makeLine() {
   let newLine = document.getElementById("myLine");
+  newLine.addEventListener("mousover", function (event) {
+    if (userMode === "Edit") {
+      hoverMenuAppear();
+    }
+  });
   newLine.style.backgroundColor = rgb(
     getRandomInt(0, 256),
     getRandomInt(0, 256),
     getRandomInt(0, 256)
   );
 }
+function hoverMenuAppear() {
+  let menu = document.getElementById("hoverMenu");
+  menu.style.display = "block";
+}
+
+function shapeColor() {
+  let shapeColor = [];
+  let r = document.getElementbyId("rSlide").value;
+  shapeColor.push(r);
+  let g = document.getElementbyId("gSlide").value;
+  shapeColor.push(g);
+  let b = document.getElementbyId("bSlide").value;
+  shapeColor.push(b);
+
+  return shapeColor;
+}
+
+//check above for adding/editing shapes. fill out function with needed materials for menu
 
 //drag and drop code
 // target elements with the "draggable" class

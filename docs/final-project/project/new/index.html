@@ -62,6 +62,7 @@
 
 <!-- shapes. look into saving as a seperate js file fix later  -->
 <div id="placeTools" class="hidden">
+  <p draggable="true"></p>
   <div class="square" id="mySquare"></div>
   <div class="circle" id="myCircle"></div>
   <div class="parallelogram" id="myParallel"></div>
@@ -71,9 +72,17 @@
 
 </div>
 
+<div class="hoverMenu" id="hoverMenu">
+  <input type="range" min="0" max="255" value="100" class="editSlider" id="rSlide">
+  <input type="range" min="0" max="255" value="100" class="editSlider" id="gSlide">
+  <input type="range" min="0" max="255" value="100" class="editSlider" id="bSlide">
+
+</div>
+
 <div><span id="timer"></span></div>
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.15/Tone.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.10.11/interact.min.js'></script><script  src="./script.js"></script>
 
 </body>
