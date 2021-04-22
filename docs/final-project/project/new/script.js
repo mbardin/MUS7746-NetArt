@@ -101,10 +101,16 @@ function randomColor() { //gives random color when needed
   return color;
 }
 
+function map(inputY, yMin, yMax, xMin, xMax){
+  percent = (inputY - yMin) / (yMax - yMin);
+  outputX = percent * (xMax - xMin) + xMin;
+  return outputX;
+}
+
 //these functions are used to adjust the parameters of the effect chain/sequence melody/synth. will be tied to object values.
-function changeVerbTime(val) {
-  let newValue = map(val, 1, 255, 0, 0.99);
-  reverb.roomSize.value.exponentialRampToValueAtTime(newValue, "+10");
+function changeVerbTime(val) { //make a mapping function
+  let newValue = map(val, 1, 255, 0, 10);
+  reverb.decay = newValue;
 }
 
 function changeDelayTime(val) {
@@ -119,12 +125,12 @@ function changeDistortion(val) {
 
 function changeVibratoSpeed(val) {
   let newValue = map(val, 1, 255, 0, 0.99);
-  vib.depth.exponentialRampToValueAtTime(newValue, "+5");
+  vib.depth = newValue;
 }
 
 function changeVibratoDepth(val) {
   let newValue = map(val, 1, 255, 0, 0.99);
-  vib.depth.exponentialRampToValueAtTime(newValue, "+2");
+  vib.frequency = newValue;
 }
 
 let erodeToggle = false; //used to trigger eroding of melody after timer goes off
@@ -411,28 +417,37 @@ function changeAppearance() {
   }
 }
 
+let currentShape;
 //the following functions make the various additional shapes when the menu items are clicked on
 function makeSquare() {
   console.log("you clicked on the square");
+  let squ = document.createElement("div");
+  squ.classList.add("square");
+  let area = document.getElementById("placeArea");
+  area.appendChild(squ);
+  currentShape = squ;
   if (userState === "Place"){
     let newSquare = document.getElementById("mySquare");
-    newSquare.style.backgroundColor = RGB(shapeColor());
-    newSquare.style.position = "absolute";
-    newSquare.onmousemove = (e) =>{ //shape follows the mouse
-      newSquare.classList.style.left = e.pageX + "px";
-      newSquare.classList.style.top = e.pageY + "px";
+    let color = shapeColor();
+    squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+    squ.style.position = "absolute";
+    area.onmousemove = (e) =>{ //shape follows the mouse
+      if(currentShape){
+      currentShape.style.left = e.pageX + "px";
+      currentShape.style.top = e.pageY + "px"; //.target.style?
+      }
     }
   
 
-    newSquare.addEventListener("mouseup", function (obj){
+    area.addEventListener("mouseup", function (e){
       if(userState === "Place"){ //places the shape when the mouse is released
-        let x = Event.pageX;
-        let y = Event.pageY;
-      obj.style.top = y;
-      obj.style.left = x;
+        let x = e.pageX;
+        let y = e.pageY;
+      currentShape.style.top = y;
+     currentShape.style.left = x;
       changeDelayTime(x); //adjust the synth params
       changeVibratoDepth(y);
-      obj.style.position = "fixed"; //locks the position on the canvas
+       
       }
     });
   }
@@ -444,7 +459,8 @@ function makeCircle() {
   console.log("you clicked on the circle");
   if (userState === "Place"){
     let newCir = document.getElementById("myCircle");
-    newCir.style.backgroundColor = RGB(shapeColor());
+    let color = shapeColor();
+    newCir.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
     newCir.style.position = "absolute";
     newCir.onmousemove = (e) =>{
       newCir.classList.style.left = e.pageX + "px";
@@ -470,7 +486,8 @@ function makeParallel() {
   console.log("you clicked on the parallelogram");
   if (userState === "Place"){
     let newPar = document.getElementById("myParallel");
-    newPar.style.backgroundColor = RGB(shapeColor());
+    let color = shapeColor();
+    newPar.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
     newPar.style.position = "absolute";
     newPar.onmousemove = (e) =>{
       newPar.classList.style.left = e.pageX + "px";
@@ -496,7 +513,8 @@ function makeTri() {
   console.log("you clicked on the square");
   if (userState === "Place"){
     let newT = document.getElementById("myTri");
-    newT.style.backgroundColor = RGB(shapeColor());
+    let color = shapeColor();
+    newT.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
     newT.style.position = "absolute";
     newT.onmousemove = (e) =>{
       newT.classList.style.left = e.pageX + "px";
@@ -522,7 +540,8 @@ function makeLine() {
   console.log("you clicked on the square");
   if (userState === "Place"){
     let newL = document.getElementById("myLine");
-    newL.style.backgroundColor = RGB(shapeColor());
+    let color = shapeColor();
+    newL.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
     newL.style.position = "absolute";
     newL.onmousemove = (e) =>{
       newL.classList.style.left = e.pageX + "px";
@@ -544,8 +563,8 @@ function makeLine() {
   }
 }
 function hoverMenuAppear() { //shows menu for changing shape colors on edit mode
-  if(userState === "Edit"){
   let menu = document.getElementById("hoverMenu");
+  if(userState === "Edit"){
   menu.style.display = "block";
   } else {
     menu.style.display = "none";
@@ -554,11 +573,11 @@ function hoverMenuAppear() { //shows menu for changing shape colors on edit mode
 
 function shapeColor() { //sets sliders for use in edit mode. only responds when mouse is up
   let shapeColor = [];
-  let r = document.getElementbyId("rSlide").value;
+  let r = document.getElementById("rSlide").value;
   shapeColor.push(r);
-  let g = document.getElementbyId("gSlide").value;
+  let g = document.getElementById("gSlide").value;
   shapeColor.push(g);
-  let b = document.getElementbyId("bSlide").value;
+  let b = document.getElementById("bSlide").value;
   shapeColor.push(b);
 
   changeVerbTime(r); //adjusts synth params based on slider values
