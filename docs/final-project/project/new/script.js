@@ -1,5 +1,5 @@
 //Global Variables
-let menu, sendButton, userState, reverb, PPDel, vib, distort, scaledTime;
+let menu, sendButton, scaledTime;
 let possibleNotes = [
   "a",
   "A",
@@ -15,8 +15,7 @@ let possibleNotes = [
   "F",
   "g",
   "G"
-]; //possible notes to add to the melody being played by the synth. add black key notes?
-let melody = ["A4", "E4", "D4"]; //starting melody for the synth. will get added to it later.
+];
 let oscTypes = [
   "sine",
   "square",
@@ -45,6 +44,7 @@ let allEllipses = [];
 let allTriangles = [];
 let allLines = [];
 
+let melody = ["A4", "E4", "D4"]; //starting melody for the synth.
 let synth = new Tone.Synth({
   oscillator: {
     type: `sine`
@@ -55,22 +55,24 @@ let synth = new Tone.Synth({
     sustain: 0.75,
     release: 3
   }
-});
+}); //starting synth params
 
-reverb = new Tone.Reverb(0.4);
-PPDel = new Tone.PingPongDelay(getRandomInt(1, 10), 0.5);
-vib = new Tone.Chorus(4, 2.5, 0.5); //adjust label
-distort = new Tone.BitCrusher(16);
+let reverb = new Tone.Reverb(0.4);
+let PPDel = new Tone.PingPongDelay(getRandomInt(1, 10), 0.5);
+let vib = new Tone.Chorus(4, 2.5, 0.5); //adjust label
+let distort = new Tone.BitCrusher(16);
 
-synth.chain(vib, distort, reverb, PPDel, Tone.Destination); //
+synth.chain(vib, distort, reverb, PPDel, Tone.Destination); //audio chain
 
+let userState = "View";
 Tone.loaded().then(() => {
-  Tone.Transport.bpm = 70;
-  Tone.Transport.start();
-  changeApperance();
+  console.log(Tone);
+  Tone.Transport.bpm = 70; //starts transport for melody
+  Tone.Transport.start(); //begins transport
+  changeAppearance(); //sets default State
 });
 
-let starterFlag = 0;
+let starterFlag = 0; //trigger for making a new sequence
 function seq() {
   let sequence = new Tone.Sequence(
     function (time, note) {
@@ -78,21 +80,21 @@ function seq() {
     },
     melody,
     "1n"
-  );
-  if (starterFlag != 0) {
+  ); //makes a new sequence with contents of melody[] everytime this is called
+  if (starterFlag != 0) { //if not first time is called, will stop the sequence, then restart it to let the new notes appear
     sequence.stop();
   }
   sequence.start();
   starterFlag++;
 }
 
-function getRandomInt(min, max) {
+function getRandomInt(min, max) { //gives random whole numbers when needed
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
 
-function randomColor() {
+function randomColor() { //gives random color when needed
   //generates a random color
   let color = [floor(random(256)), floor(random(256)), floor(random(256))];
   console.log(`This random color is: ${color}`); //displaces most recent random color in console
@@ -101,25 +103,31 @@ function randomColor() {
 
 //these functions are used to adjust the parameters of the effect chain/sequence melody/synth. will be tied to object values.
 function changeVerbTime(val) {
-  let newValue = map(val, 1, 255, 0, 10);
-  reverb.decay = newValue;
+  let newValue = map(val, 1, 255, 0, 0.99);
+  reverb.roomSize.value.exponentialRampToValueAtTime(newValue, "+10");
 }
 
 function changeDelayTime(val) {
   let newValue = map(val, 1, 255, 0, 10);
-  PPDel.delayTime.value = newValue;
+  PPDel.delayTime.exponentialRampToValueAtTime(newValue, "+10");
 }
 
 function changeDistortion(val) {
   let newValue = map(val, 1, 255, 1, 32);
-  distort.bits.value = newValue;
+  distort.bits.linearRampToValueAtTime(newValue, "+30");
 }
 
 function changeVibratoSpeed(val) {
-  let newValue = map(val, 1, 255, 0, 10);
-  vib.frequency.value = newValue;
+  let newValue = map(val, 1, 255, 0, 0.99);
+  vib.depth.exponentialRampToValueAtTime(newValue, "+5");
 }
-let erodeToggle = false;
+
+function changeVibratoDepth(val) {
+  let newValue = map(val, 1, 255, 0, 0.99);
+  vib.depth.exponentialRampToValueAtTime(newValue, "+2");
+}
+
+let erodeToggle = false; //used to trigger eroding of melody after timer goes off
 function erodeMelody() {
   //transitions back to original melody
   if (melody.length > 3 && erodeToggle) {
@@ -132,20 +140,20 @@ function erodeMelody() {
   }
 }
 
-function defaultFX() {
+function defaultFX() { //transitions back to default state after timer has gone off
   reverb.roomSize.value.exponentialRampToValueAtTime(0.2, "+100"); //0.2
   PPDel.delayTime.exponentialRampToValueAtTime(0.5, "+30"); //0.5
   PPDel.feedback.exponentialRampToValueAtTime(0.5, "+300"); //0.5
   vib.frequency.exponentialRampToValueAtTime(1, "+60"); //1
   vib.depth.exponentialRampToValueAtTime(0.1, "+200"); //0.1
 
-  //look at distortion. it gives an error
-  distort.distortion.linearRampToValueAtTime(0.01, "+600"); //0.05
+  //look at distortion. it gives an error. is not bit cru
+  distort.bits.linearRampToValueAtTime(32, "+600"); //0.05
   synth.volume.exponentialRampToValueAtTime(0, "+60"); //0
 }
 
 let muteToggle = false;
-document.querySelector("#mute").addEventListener("click", () => {
+document.querySelector("#mute").addEventListener("click", () => { //has mute button work
   if (muteToggle) {
     louder();
     //   startTimer();
@@ -157,18 +165,18 @@ document.querySelector("#mute").addEventListener("click", () => {
   }
 });
 
-function shutUp() {
+function shutUp() { //mutes and changes button text
   synth.volume.exponentialRampToValueAtTime(-60, "+5");
   document.getElementById("mute").textContent = "UNMUTE";
   //  startTimer();
 }
-function louder() {
+function louder() { //unmutes and changes button text
   synth.volume.exponentialRampToValueAtTime(0, "+5");
   document.getElementById("mute").textContent = "MUTE";
   // startTimer();
 }
 
-function addNotes(note) {
+function addNotes(note) { //adds notes to melody[] when typed into text input
   if (possibleNotes.includes(note)) {
     let oct = getRandomInt(1, 6);
     let newestNote = `${note}${oct}`;
@@ -181,7 +189,7 @@ function addNotes(note) {
 }
 
 function removeNotes() {
-  //removes the last nore from the melody
+  //removes the last note from the melody
   melody.pop();
   console.log(`You removed a note from the melody.`);
   console.log(`The melody is now: [${melody}]`);
@@ -189,7 +197,7 @@ function removeNotes() {
   //startTimer();
 }
 
-function changeSynthOsc(type) {
+function changeSynthOsc(type) { //changes synth type based on text input
   //changes the synth type
   if (oscTypes.includes(type)) {
     synth.oscillator.type = type;
@@ -229,6 +237,7 @@ function createLetters() {
   letters.forEach((letter) => {
     console.log(letter);
     addNotes(letter);
+    changeSynthOsc(letter);
     let ldiv = document.createElement("div");
     ldiv.classList.add("letters");
     ldiv.innerHTML = letter;
@@ -280,7 +289,7 @@ btn.onclick = () => {
 }; //make the button/interface look
 
 //functions for setting the user mode via buttons. synth will not start until one is clicked
-function setPlace() {
+function setPlace() { //sets the various things for place mode
   userState = "Place";
   console.log(`You have set the User Mode to ${userState}`);
 
@@ -303,11 +312,11 @@ function setPlace() {
     text.style.display = "none";
     typeBox.style.display = "none";
   } //displaces current mode in console
-  changeApperance();
+  changeAppearance();
   seq();
 }
 
-function setView() {
+function setView() { //sets the various things needed for view mode
   userState = "View";
   console.log(`You have set the User Mode to ${userState}`); //displays current mode in console
   let checkBox = document.getElementById("checkView");
@@ -327,11 +336,11 @@ function setView() {
   } else {
     text.style.display = "none";
   }
-  changeApperance();
+  changeAppearance();
   seq();
 }
 
-function setEdit() {
+function setEdit() { //sets the various things needed for edit mode
   userState = "Edit";
   console.log(`You have set the User Mode to ${userState}`); //displays current mode in console
 
@@ -351,7 +360,7 @@ function setEdit() {
   } else {
     text.style.display = "none";
   }
-  changeApperance();
+  changeAppearance();
   seq();
 }
 
@@ -382,7 +391,7 @@ let menuTri = document.getElementById("myTri");
 let menuLine = document.getElementById("myLine");
 let menuDivider = document.getElementById("menuLine");
 
-function changeApperance() {
+function changeAppearance() {
   if (userState === "Place") {
     viewModeScreenText.style.display = "none";
     document.getElementById("placeTools").classList.remove("hidden");
@@ -402,81 +411,148 @@ function changeApperance() {
   }
 }
 
+//the following functions make the various additional shapes when the menu items are clicked on
 function makeSquare() {
-  let newSquare = document.getElementById("mySquare");
-  newSquare.addEventListener("mousover", function (event) {
-    if (userMode === "Edit") {
-      hoverMenuAppear();
+  console.log("you clicked on the square");
+  if (userState === "Place"){
+    let newSquare = document.getElementById("mySquare");
+    newSquare.style.backgroundColor = RGB(shapeColor());
+    newSquare.style.position = "absolute";
+    newSquare.onmousemove = (e) =>{ //shape follows the mouse
+      newSquare.classList.style.left = e.pageX + "px";
+      newSquare.classList.style.top = e.pageY + "px";
     }
-  });
-  newSquare.style.backgroundColor = rgb(
-    getRandomInt(0, 256),
-    getRandomInt(0, 256),
-    getRandomInt(0, 256)
-  );
+  
+
+    newSquare.addEventListener("mouseup", function (obj){
+      if(userState === "Place"){ //places the shape when the mouse is released
+        let x = Event.pageX;
+        let y = Event.pageY;
+      obj.style.top = y;
+      obj.style.left = x;
+      changeDelayTime(x); //adjust the synth params
+      changeVibratoDepth(y);
+      obj.style.position = "fixed"; //locks the position on the canvas
+      }
+    });
+  }
 }
 
+
+
 function makeCircle() {
-  let newCircle = document.getElementById("myCircle");
-  newCircle.addEventListener("mousover", function (event) {
-    if (userMode === "Edit") {
-      hoverMenuAppear();
+  console.log("you clicked on the circle");
+  if (userState === "Place"){
+    let newCir = document.getElementById("myCircle");
+    newCir.style.backgroundColor = RGB(shapeColor());
+    newCir.style.position = "absolute";
+    newCir.onmousemove = (e) =>{
+      newCir.classList.style.left = e.pageX + "px";
+      newCir.classList.style.top = e.pageY + "px";
     }
-  });
-  newCircle.style.backgroundColor = rgb(
-    getRandomInt(0, 256),
-    getRandomInt(0, 256),
-    getRandomInt(0, 256)
-  );
+  
+
+    newCir.addEventListener("mouseup", function (obj){
+      if(userState === "Place"){
+        let x = Event.pageX;
+        let y = Event.pageY;
+      obj.style.top = y;
+      obj.style.left = x;
+      changeDelayTime(x);
+      changeVibratoDepth(y);
+      obj.style.position = "fixed";
+      }
+    });
+  }
 }
 
 function makeParallel() {
-  let newParallel = document.getElementById("myParallel");
-  newParallel.addEventListener("mousover", function (event) {
-    if (userMode === "Edit") {
-      hoverMenuAppear();
+  console.log("you clicked on the parallelogram");
+  if (userState === "Place"){
+    let newPar = document.getElementById("myParallel");
+    newPar.style.backgroundColor = RGB(shapeColor());
+    newPar.style.position = "absolute";
+    newPar.onmousemove = (e) =>{
+      newPar.classList.style.left = e.pageX + "px";
+      newPar.classList.style.top = e.pageY + "px";
     }
-  });
-  newParallel.style.backgroundColor = rgb(
-    getRandomInt(0, 256),
-    getRandomInt(0, 256),
-    getRandomInt(0, 256)
-  );
+
+
+    newPar.addEventListener("mouseup", function (obj){
+      if(userState === "Place"){
+        let x = Event.pageX;
+        let y = Event.pageY;
+      obj.style.top = y;
+      obj.style.left = x;
+      changeDelayTime(x);
+      changeVibratoDepth(y);
+      obj.style.position = "fixed";
+      }
+    });
+  }
 }
 
 function makeTri() {
-  let newTri = document.getElementById("myTri");
-  newTri.addEventListener("mousover", function (event) {
-    if (userMode === "Edit") {
-      hoverMenuAppear();
+  console.log("you clicked on the square");
+  if (userState === "Place"){
+    let newT = document.getElementById("myTri");
+    newT.style.backgroundColor = RGB(shapeColor());
+    newT.style.position = "absolute";
+    newT.onmousemove = (e) =>{
+      newT.classList.style.left = e.pageX + "px";
+      newT.classList.style.top = e.pageY + "px";
     }
-  });
-  newTri.style.backgroundColor = rgb(
-    getRandomInt(0, 256),
-    getRandomInt(0, 256),
-    getRandomInt(0, 256)
-  );
+  
+
+    newT.addEventListener("mouseup", function (obj){
+      if(userState === "Place"){
+        let x = Event.pageX;
+        let y = Event.pageY;
+      obj.style.top = y;
+      obj.style.left = x;
+      changeDelayTime(x);
+      changeVibratoDepth(y);
+      obj.style.position = "fixed";
+      }
+    });
+  }
 }
 
 function makeLine() {
-  let newLine = document.getElementById("myLine");
-  newLine.addEventListener("mousover", function (event) {
-    if (userMode === "Edit") {
-      hoverMenuAppear();
+  console.log("you clicked on the square");
+  if (userState === "Place"){
+    let newL = document.getElementById("myLine");
+    newL.style.backgroundColor = RGB(shapeColor());
+    newL.style.position = "absolute";
+    newL.onmousemove = (e) =>{
+      newL.classList.style.left = e.pageX + "px";
+      newL.classList.style.top = e.pageY + "px";
     }
-  });
-  newLine.style.backgroundColor = rgb(
-    getRandomInt(0, 256),
-    getRandomInt(0, 256),
-    getRandomInt(0, 256)
-  );
+
+
+    newL.addEventListener("mouseup", function (obj){
+      if(userState === "Place"){
+        let x = Event.pageX;
+        let y = Event.pageY;
+      obj.style.top = y;
+      obj.style.left = x;
+      changeDelayTime(x);
+      changeVibratoDepth(y);
+      obj.style.position = "fixed";
+      }
+    });
+  }
 }
-function hoverMenuAppear() {
+function hoverMenuAppear() { //shows menu for changing shape colors on edit mode
+  if(userState === "Edit"){
   let menu = document.getElementById("hoverMenu");
   menu.style.display = "block";
+  } else {
+    menu.style.display = "none";
+  }
 }
 
-function shapeColor() {
+function shapeColor() { //sets sliders for use in edit mode. only responds when mouse is up
   let shapeColor = [];
   let r = document.getElementbyId("rSlide").value;
   shapeColor.push(r);
@@ -485,8 +561,20 @@ function shapeColor() {
   let b = document.getElementbyId("bSlide").value;
   shapeColor.push(b);
 
+  changeVerbTime(r); //adjusts synth params based on slider values
+  changeDistortion(g);
+  changeVibratoSpeed(b);
+
   return shapeColor;
 }
+
+
+
+
+
+
+
+
 
 //check above for adding/editing shapes. fill out function with needed materials for menu
 

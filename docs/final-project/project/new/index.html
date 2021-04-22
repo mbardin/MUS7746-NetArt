@@ -63,19 +63,19 @@
 <!-- shapes. look into saving as a seperate js file fix later  -->
 <div id="placeTools" class="hidden">
   <p draggable="true"></p>
-  <div class="square" id="mySquare"></div>
-  <div class="circle" id="myCircle"></div>
-  <div class="parallelogram" id="myParallel"></div>
-  <div class="triangle-up" id="myTri"></div>
-  <div class="line" id="myLine"></div>
+  <div class="square" id="mySquare" onclick="makeSquare()" onmouseover="hoverMenuAppear()"></div>
+  <div class="circle" id="myCircle" onclick="makeCircle()" onmouseover="hoverMenuAppear()"></div>
+  <div class="parallelogram" id="myParallel" onclick="makeParallel()" onmouseover="hoverMenuAppear()" ></div>
+  <div class="triangle-up" id="myTri" onclick="makeTri()" onmouseover="hoverMenuAppear()"></div>
+  <div class="line" id="myLine" onclick="makeLine()" onmouseover="hoverMenuAppear()"></div>
   <div class="menuline" id="menuLine"></div>
 
 </div>
 
 <div class="hoverMenu" id="hoverMenu">
-  <input type="range" min="0" max="255" value="100" class="editSlider" id="rSlide">
-  <input type="range" min="0" max="255" value="100" class="editSlider" id="gSlide">
-  <input type="range" min="0" max="255" value="100" class="editSlider" id="bSlide">
+  <input type="range" min="0" max="255" value="100" class="editSlider" id="rSlide" onmouseup="shapeColor()">
+  <input type="range" min="0" max="255" value="100" class="editSlider" id="gSlide" onmouseup="shapeColor()">
+  <input type="range" min="0" max="255" value="100" class="editSlider" id="bSlide" onmouseup="shapeColor()">
 
 </div>
 
