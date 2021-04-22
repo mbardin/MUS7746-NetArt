@@ -441,13 +441,15 @@ function makeSquare() {
 
     area.addEventListener("mouseup", function (e){
       if(userState === "Place"){ //places the shape when the mouse is released
+        if(currentShape){
         let x = e.pageX;
         let y = e.pageY;
       currentShape.style.top = y;
      currentShape.style.left = x;
+     currentShape = null;
       changeDelayTime(x); //adjust the synth params
       changeVibratoDepth(y);
-       
+        }
       }
     });
   }
@@ -457,26 +459,35 @@ function makeSquare() {
 
 function makeCircle() {
   console.log("you clicked on the circle");
+  let squ = document.createElement("div");
+  squ.classList.add("circle");
+  let area = document.getElementById("placeArea");
+  area.appendChild(squ);
+  currentShape = squ;
   if (userState === "Place"){
-    let newCir = document.getElementById("myCircle");
+    let newSquare = document.getElementById("myCircle");
     let color = shapeColor();
-    newCir.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
-    newCir.style.position = "absolute";
-    newCir.onmousemove = (e) =>{
-      newCir.classList.style.left = e.pageX + "px";
-      newCir.classList.style.top = e.pageY + "px";
+    squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+    squ.style.position = "absolute";
+    area.onmousemove = (e) =>{ //shape follows the mouse
+      if(currentShape){
+      currentShape.style.left = e.pageX + "px";
+      currentShape.style.top = e.pageY + "px"; //.target.style?
+      }
     }
   
 
-    newCir.addEventListener("mouseup", function (obj){
-      if(userState === "Place"){
-        let x = Event.pageX;
-        let y = Event.pageY;
-      obj.style.top = y;
-      obj.style.left = x;
-      changeDelayTime(x);
+    area.addEventListener("mouseup", function (e){
+      if(userState === "Place"){ //places the shape when the mouse is released
+        if(currentShape){
+        let x = e.pageX;
+        let y = e.pageY;
+      currentShape.style.top = y;
+     currentShape.style.left = x;
+     currentShape = null;
+      changeDelayTime(x); //adjust the synth params
       changeVibratoDepth(y);
-      obj.style.position = "fixed";
+        }
       }
     });
   }
@@ -484,80 +495,107 @@ function makeCircle() {
 
 function makeParallel() {
   console.log("you clicked on the parallelogram");
+  let squ = document.createElement("div");
+  squ.classList.add("parallelogram");
+  let area = document.getElementById("placeArea");
+  area.appendChild(squ);
+  currentShape = squ;
   if (userState === "Place"){
-    let newPar = document.getElementById("myParallel");
+    let newSquare = document.getElementById("myParallel");
     let color = shapeColor();
-    newPar.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
-    newPar.style.position = "absolute";
-    newPar.onmousemove = (e) =>{
-      newPar.classList.style.left = e.pageX + "px";
-      newPar.classList.style.top = e.pageY + "px";
+    squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+    squ.style.position = "absolute";
+    area.onmousemove = (e) =>{ //shape follows the mouse
+      if(currentShape){
+      currentShape.style.left = e.pageX + "px";
+      currentShape.style.top = e.pageY + "px"; //.target.style?
+      }
     }
+  
 
-
-    newPar.addEventListener("mouseup", function (obj){
-      if(userState === "Place"){
-        let x = Event.pageX;
-        let y = Event.pageY;
-      obj.style.top = y;
-      obj.style.left = x;
-      changeDelayTime(x);
+    area.addEventListener("mouseup", function (e){
+      if(userState === "Place"){ //places the shape when the mouse is released
+        if(currentShape){
+        let x = e.pageX;
+        let y = e.pageY;
+      currentShape.style.top = y;
+     currentShape.style.left = x;
+     currentShape = null;
+      changeDelayTime(x); //adjust the synth params
       changeVibratoDepth(y);
-      obj.style.position = "fixed";
+        }
       }
     });
   }
 }
 
 function makeTri() {
-  console.log("you clicked on the square");
+  console.log("you clicked on the triangle");
+  let squ = document.createElement("div");
+  squ.classList.add("triangle-up");
+  let area = document.getElementById("placeArea");
+  area.appendChild(squ);
+  currentShape = squ;
   if (userState === "Place"){
-    let newT = document.getElementById("myTri");
+    let newSquare = document.getElementById("myTri");
     let color = shapeColor();
-    newT.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
-    newT.style.position = "absolute";
-    newT.onmousemove = (e) =>{
-      newT.classList.style.left = e.pageX + "px";
-      newT.classList.style.top = e.pageY + "px";
+    squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+    squ.style.position = "absolute";
+    area.onmousemove = (e) =>{ //shape follows the mouse
+      if(currentShape){
+      currentShape.style.left = e.pageX + "px";
+      currentShape.style.top = e.pageY + "px"; //.target.style?
+      }
     }
   
 
-    newT.addEventListener("mouseup", function (obj){
-      if(userState === "Place"){
-        let x = Event.pageX;
-        let y = Event.pageY;
-      obj.style.top = y;
-      obj.style.left = x;
-      changeDelayTime(x);
+    area.addEventListener("mouseup", function (e){
+      if(userState === "Place"){ //places the shape when the mouse is released
+        if(currentShape){
+        let x = e.pageX;
+        let y = e.pageY;
+      currentShape.style.top = y;
+     currentShape.style.left = x;
+     currentShape = null;
+      changeDelayTime(x); //adjust the synth params
       changeVibratoDepth(y);
-      obj.style.position = "fixed";
+        }
       }
     });
   }
 }
 
 function makeLine() {
-  console.log("you clicked on the square");
+  console.log("you clicked on the line");
+  let squ = document.createElement("div");
+  squ.classList.add("line");
+  let area = document.getElementById("placeArea");
+  area.appendChild(squ);
+  currentShape = squ;
   if (userState === "Place"){
-    let newL = document.getElementById("myLine");
+    let newSquare = document.getElementById("myLine");
     let color = shapeColor();
-    newL.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
-    newL.style.position = "absolute";
-    newL.onmousemove = (e) =>{
-      newL.classList.style.left = e.pageX + "px";
-      newL.classList.style.top = e.pageY + "px";
+    squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+    squ.style.position = "absolute";
+    area.onmousemove = (e) =>{ //shape follows the mouse
+      if(currentShape){
+      currentShape.style.left = e.pageX + "px";
+      currentShape.style.top = e.pageY + "px"; //.target.style?
+      }
     }
+  
 
-
-    newL.addEventListener("mouseup", function (obj){
-      if(userState === "Place"){
-        let x = Event.pageX;
-        let y = Event.pageY;
-      obj.style.top = y;
-      obj.style.left = x;
-      changeDelayTime(x);
+    area.addEventListener("mouseup", function (e){
+      if(userState === "Place"){ //places the shape when the mouse is released
+        if(currentShape){
+        let x = e.pageX;
+        let y = e.pageY;
+      currentShape.style.top = y;
+     currentShape.style.left = x;
+     currentShape = null;
+      changeDelayTime(x); //adjust the synth params
       changeVibratoDepth(y);
-      obj.style.position = "fixed";
+        }
       }
     });
   }
