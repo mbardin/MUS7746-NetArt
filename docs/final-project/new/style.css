@@ -2,7 +2,7 @@ body {
   background-color: rgb(255, 223, 186);
   margin: 0px;
   height:100%;
-  font-family: system-ui, fantasy, monospace, sans-serif;
+  font-family: fantasy, monospace, system-ui;
   animation: bgfade;
   animation-duration: 600s;
   animation-iteration-count: infinite;
@@ -38,6 +38,7 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
   /* Black w/ opacity */
   text-align: center;
+  font-family: fantasy, monospace, system-ui;
 }
 
 /* Modal Content/Box */
@@ -49,6 +50,7 @@ body {
   width: 95%; /* Could be more or less, depending on screen size
   */
   text-align: center;
+  font-family: fantasy, monospace, system-ui;
 }
 
 /* The Close Button */
@@ -72,12 +74,14 @@ body {
   background-color: #81e081;
   color: white;
   text-align: center;
+  font-family: fantasy, monospace, system-ui;
 }
 
 /* Modal Body */
 .modal-body {
   padding: 2px 16px;
   text-align: center;
+  font-family: fantasy, monospace, system-ui;
 }
 
 /* Modal Footer */
@@ -86,6 +90,7 @@ body {
   background-color: #81e081;
   color: white;
   text-align: center;
+  font-family: fantasy, monospace, system-ui;
 }
 
 /* Modal Content */
@@ -102,6 +107,7 @@ body {
   animation-name: animatetop;
   animation-duration: 0.4s;
   text-align: center;
+  font-family: fantasy, monospace, system-ui;
 }
 
 .modal-toggle {
@@ -240,6 +246,7 @@ body {
   
 .viewModeText {
   display: none;
+  font-family: fantasy, monospace, system-ui;
 }
 
 .square {
