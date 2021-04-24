@@ -44,6 +44,22 @@ let allEllipses = [];
 let allTriangles = [];
 let allLines = [];
 
+//UI objects
+let viewModeScreenText = document.getElementById("viewModeText");
+let TypeBox = document.getElementById("textField");
+let menuSqu = document.getElementById("mySquare");
+let menuCir = document.getElementById("myCircle");
+let menuParallel = document.getElementById("myParallel");
+let menuTri = document.getElementById("myTri");
+let menuLine = document.getElementById("myLine");
+let menuDivider = document.getElementById("menuLine");
+let redSlider = document.getElementById("rSlide");
+let blueSlider = document.getElementById("bSlide");
+let greenSlider = document.getElementById("gSlide");
+
+
+
+
 let melody = ["A4", "E4", "D4"]; //starting melody for the synth.
 let synth = new Tone.Synth({
   oscillator: {
@@ -387,33 +403,36 @@ window.onclick = function (event) {
   }
 };
 
-//responds to toggle check above
-let viewModeScreenText = document.getElementById("viewModeText");
-let TypeBox = document.getElementById("textField");
-let menuSqu = document.getElementById("mySquare");
-let menuCir = document.getElementById("myCircle");
-let menuParallel = document.getElementById("myParallel");
-let menuTri = document.getElementById("myTri");
-let menuLine = document.getElementById("myLine");
-let menuDivider = document.getElementById("menuLine");
 
 function changeAppearance() {
   if (userState === "Place") {
     viewModeScreenText.style.display = "none";
     document.getElementById("placeTools").classList.remove("hidden");
     document.getElementById("textField").classList.remove("hidden");
+    redSlider.classList.add("hidden");
+    greenSlider.classList.add("hidden");
+    blueSlider.classList.add("hidden");
   } else if (userState === "Edit") {
     viewModeScreenText.style.display = "none";
     document.getElementById("placeTools").classList.add("hidden");
     document.getElementById("textField").classList.add("hidden");
+    redSlider.classList.remove("hidden");
+    greenSlider.classList.remove("hidden");
+    blueSlider.classList.remove("hidden");
   } else if (userState === "View") {
     viewModeScreenText.style.display = "block";
     document.getElementById("placeTools").classList.add("hidden");
     document.getElementById("textField").classList.add("hidden");
+    redSlider.classList.add("hidden");
+    greenSlider.classList.add("hidden");
+    blueSlider.classList.add("hidden");
   } else {
     viewModeScreenText.style.display = "none";
     document.getElementById("placeTools").classList.add("hidden");
     document.getElementById("textField").classList.add("hidden");
+    redSlider.classList.add("hidden");
+    greenSlider.classList.add("hidden");
+    blueSlider.classList.add("hidden");
   }
 }
 

@@ -323,7 +323,7 @@ body {
 
 #placeTools {
   opacity: 1;
-  transition: opacity 2.5s;
+  transition: opacity 2s;
 }
 
 #placeTools.hidden {
@@ -333,23 +333,20 @@ body {
 
 /* move from here below to vs code 04/19*/
 
-.hoverMenu {
-  display: none;
-  position: relative;
+#hoverMenu{
+  opacity: 1;
+  transition: opacity 2s;
+}
+
+#hoverMenu.hidden {
+  opacity: 0;
 }
 
 .editSlider{
-    display: none;
+  display: none;
   position: absolute;
   background-color: #f1f1f1;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-}
-/* make apply to all shapes. add another class? */
-.editSlider a:hover {
-  background-color: #555;
-}
-.hoverMenu:hover .editSlider {
-  display: block;
 }

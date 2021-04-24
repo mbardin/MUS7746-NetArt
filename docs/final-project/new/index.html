@@ -22,6 +22,10 @@
   <button id="mute">MUTE</button>
 </div>
 
+<input id='textField' class="textField" class="fade-in-image" name="text" value="Type here. Press Enter to Send">
+
+<div id='letters' class="fade-out"></div>
+
 <div id="placeArea" class="placeArea">Place things Below Me</div>
 
 <!-- The Modal -->
@@ -58,9 +62,6 @@
 
 </div>
 
-<input id='textField' class="textField" class="fade-in-image" name="text" value="Type here. Press Enter to Send">
-
-<div id='letters' class="fade-out"></div>
 
 <!-- shapes. look into saving as a seperate js file fix later  -->
 <div id="placeTools" class="hidden">
@@ -74,7 +75,7 @@
 
 </div>
 
-<div class="hoverMenu" id="hoverMenu">
+<div class="hidden" id="hoverMenu">
   <input type="range" min="0" max="255" value="100" class="editSlider" id="rSlide" onmouseup="shapeColor()">
   <input type="range" min="0" max="255" value="100" class="editSlider" id="gSlide" onmouseup="shapeColor()">
   <input type="range" min="0" max="255" value="100" class="editSlider" id="bSlide" onmouseup="shapeColor()">
