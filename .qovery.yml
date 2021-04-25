@@ -3,6 +3,7 @@ application:
   name: "the-circle-of-life"
   project: "The Circle of Life"
   organization: "QoveryCommunity"
+  publicly_accessible: "true"
 routers:
 - name: "main-the-circle-of-life"
   routes:
