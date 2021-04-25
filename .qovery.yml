@@ -1,0 +1,11 @@
+---
+application:
+  name: "the-circle-of-life"
+  project: "The Circle of Life"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-the-circle-of-life"
+  routes:
+  - application_name: "the-circle-of-life"
+    paths:
+    - "/*"
