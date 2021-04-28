@@ -1,5 +1,5 @@
 //Global Variables
-let menu, sendButton, scaledTime;
+let sendButton, scaledTime;
 let possibleNotes = [
   "a",
   "A",
@@ -56,7 +56,7 @@ let menuDivider = document.getElementById("menuLine");
 let redSlider = document.getElementById("rSlide");
 let blueSlider = document.getElementById("bSlide");
 let greenSlider = document.getElementById("gSlide");
-
+let menu = document.getElementById("hoverMenu");
 
 
 
@@ -379,6 +379,9 @@ function setEdit() { //sets the various things needed for edit mode
     view.checked = false;
     placeText.style.display = "none";
     viewText.style.display = "none";
+    redSlider.classList.remove("hidden");
+    greenSlider.classList.remove("hidden");
+    blueSlider.classList.remove("hidden");
   } else {
     text.style.display = "none";
   }
@@ -423,6 +426,7 @@ function changeAppearance() {
     viewModeScreenText.style.display = "block";
     document.getElementById("placeTools").classList.add("hidden");
     document.getElementById("textField").classList.add("hidden");
+    menu.classList.add("hidden");
     redSlider.classList.add("hidden");
     greenSlider.classList.add("hidden");
     blueSlider.classList.add("hidden");
@@ -430,11 +434,14 @@ function changeAppearance() {
     viewModeScreenText.style.display = "none";
     document.getElementById("placeTools").classList.add("hidden");
     document.getElementById("textField").classList.add("hidden");
+    menu.classList.add("hidden");
     redSlider.classList.add("hidden");
     greenSlider.classList.add("hidden");
     blueSlider.classList.add("hidden");
   }
 }
+
+
 
 let currentShape;
 //the following functions make the various additional shapes when the menu items are clicked on
@@ -444,11 +451,34 @@ function makeSquare() {
   squ.classList.add("square");
   let area = document.getElementById("placeArea");
   area.appendChild(squ);
+  squ.addEventListener("click", function (e){
+    if(userState === "Edit"){
+      let shape = squ;
+    let shapeColor = [];
+  let r = document.getElementById("rSlide").value;
+  shapeColor.push(r);
+  let g = document.getElementById("gSlide").value;
+  shapeColor.push(g);
+  let b = document.getElementById("bSlide").value;
+  shapeColor.push(b);
+
+  shape.style.backgroundColor = `rgb(${shapeColor[0]}, ${shapeColor[1]}, ${shapeColor[2]})`;
+
+  changeVerbTime(r); //adjusts synth params based on slider values
+  changeDistortion(g);
+  changeVibratoSpeed(b);
+
+  for(let i = 0; i > 3; i++){
+  shapeColor.pop();
+  }
+}
+  });
+
   currentShape = squ;
   if (userState === "Place"){
     let newSquare = document.getElementById("mySquare");
-    let color = shapeColor();
-    squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+    //let color = shapeColor();
+    //squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
     squ.style.position = "absolute";
     area.onmousemove = (e) =>{ //shape follows the mouse
       if(currentShape){
@@ -474,19 +504,39 @@ function makeSquare() {
   }
 }
 
-
-
 function makeCircle() {
   console.log("you clicked on the circle");
   let squ = document.createElement("div");
   squ.classList.add("circle");
   let area = document.getElementById("placeArea");
   area.appendChild(squ);
+  squ.addEventListener("click", function (e){
+    if(userState === "Edit"){
+      let shape = squ;
+    let shapeColor = [];
+  let r = document.getElementById("rSlide").value;
+  shapeColor.push(r);
+  let g = document.getElementById("gSlide").value;
+  shapeColor.push(g);
+  let b = document.getElementById("bSlide").value;
+  shapeColor.push(b);
+
+  shape.style.backgroundColor = `rgb(${shapeColor[0]}, ${shapeColor[1]}, ${shapeColor[2]})`;
+
+  changeVerbTime(r); //adjusts synth params based on slider values
+  changeDistortion(g);
+  changeVibratoSpeed(b);
+
+  for(let i = 0; i > 3; i++){
+  shapeColor.pop();
+  }
+}
+  });
   currentShape = squ;
   if (userState === "Place"){
     let newSquare = document.getElementById("myCircle");
-    let color = shapeColor();
-    squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+    //let color = shapeColor();
+   // squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
     squ.style.position = "absolute";
     area.onmousemove = (e) =>{ //shape follows the mouse
       if(currentShape){
@@ -518,11 +568,33 @@ function makeParallel() {
   squ.classList.add("parallelogram");
   let area = document.getElementById("placeArea");
   area.appendChild(squ);
+  squ.addEventListener("click", function (e){
+    if(userState === "Edit"){
+      let shape = squ;
+    let shapeColor = [];
+  let r = document.getElementById("rSlide").value;
+  shapeColor.push(r);
+  let g = document.getElementById("gSlide").value;
+  shapeColor.push(g);
+  let b = document.getElementById("bSlide").value;
+  shapeColor.push(b);
+
+  shape.style.backgroundColor = `rgb(${shapeColor[0]}, ${shapeColor[1]}, ${shapeColor[2]})`;
+
+  changeVerbTime(r); //adjusts synth params based on slider values
+  changeDistortion(g);
+  changeVibratoSpeed(b);
+
+  for(let i = 0; i > 3; i++){
+  shapeColor.pop();
+  }
+}
+  });
   currentShape = squ;
   if (userState === "Place"){
     let newSquare = document.getElementById("myParallel");
-    let color = shapeColor();
-    squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+    //let color = shapeColor();
+    //squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
     squ.style.position = "absolute";
     area.onmousemove = (e) =>{ //shape follows the mouse
       if(currentShape){
@@ -554,11 +626,33 @@ function makeTri() {
   squ.classList.add("triangle-up");
   let area = document.getElementById("placeArea");
   area.appendChild(squ);
+  squ.addEventListener("click", function (e){
+    if(userState === "Edit"){
+      let shape = squ;
+    let shapeColor = [];
+  let r = document.getElementById("rSlide").value;
+  shapeColor.push(r);
+  let g = document.getElementById("gSlide").value;
+  shapeColor.push(g);
+  let b = document.getElementById("bSlide").value;
+  shapeColor.push(b);
+
+  shape.style.backgroundColor = `rgb(${shapeColor[0]}, ${shapeColor[1]}, ${shapeColor[2]})`;
+
+  changeVerbTime(r); //adjusts synth params based on slider values
+  changeDistortion(g);
+  changeVibratoSpeed(b);
+
+  for(let i = 0; i > 3; i++){
+  shapeColor.pop();
+  }
+}
+  });
   currentShape = squ;
   if (userState === "Place"){
     let newSquare = document.getElementById("myTri");
-    let color = shapeColor();
-    squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+   // let color = shapeColor();
+   // squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
     squ.style.position = "absolute";
     area.onmousemove = (e) =>{ //shape follows the mouse
       if(currentShape){
@@ -590,11 +684,33 @@ function makeLine() {
   squ.classList.add("line");
   let area = document.getElementById("placeArea");
   area.appendChild(squ);
+  squ.addEventListener("click", function (e){
+    if(userState === "Edit"){
+      let shape = squ;
+    let shapeColor = [];
+  let r = document.getElementById("rSlide").value;
+  shapeColor.push(r);
+  let g = document.getElementById("gSlide").value;
+  shapeColor.push(g);
+  let b = document.getElementById("bSlide").value;
+  shapeColor.push(b);
+
+  shape.style.backgroundColor = `rgb(${shapeColor[0]}, ${shapeColor[1]}, ${shapeColor[2]})`;
+
+  changeVerbTime(r); //adjusts synth params based on slider values
+  changeDistortion(g);
+  changeVibratoSpeed(b);
+
+  for(let i = 0; i > 3; i++){
+  shapeColor.pop();
+  }
+}
+  });
   currentShape = squ;
   if (userState === "Place"){
     let newSquare = document.getElementById("myLine");
-    let color = shapeColor();
-    squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+   // let color = shapeColor();
+   // squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
     squ.style.position = "absolute";
     area.onmousemove = (e) =>{ //shape follows the mouse
       if(currentShape){
@@ -619,145 +735,117 @@ function makeLine() {
     });
   }
 }
-function hoverMenuAppear() { //shows menu for changing shape colors on edit mode
-  let menu = document.getElementById("hoverMenu");
-  if(userState === "Edit"){
-  menu.style.display = "block";
-  } else {
-    menu.style.display = "none";
-  }
-}
-
-function shapeColor() { //sets sliders for use in edit mode. only responds when mouse is up
-  let shapeColor = [];
-  let r = document.getElementById("rSlide").value;
-  shapeColor.push(r);
-  let g = document.getElementById("gSlide").value;
-  shapeColor.push(g);
-  let b = document.getElementById("bSlide").value;
-  shapeColor.push(b);
-
-  changeVerbTime(r); //adjusts synth params based on slider values
-  changeDistortion(g);
-  changeVibratoSpeed(b);
-
-  return shapeColor;
-}
 
 
 
 
 
+// //check above for adding/editing shapes. fill out function with needed materials for menu
 
+// //drag and drop code
+// // target elements with the "draggable" class
+// interact(".draggable").draggable({
+//   // enable inertial throwing
+//   inertia: true,
+//   // keep the element within the area of it's parent
+//   modifiers: [
+//     interact.modifiers.restrictRect({
+//       restriction: "parent",
+//       endOnly: true
+//     })
+//   ],
+//   // enable autoScroll
+//   autoScroll: true,
 
+//   listeners: {
+//     // call this function on every dragmove event
+//     move: dragMoveListener,
 
+//     // call this function on every dragend event
+//     end(event) {
+//       var textEl = event.target.querySelector("p");
 
-//check above for adding/editing shapes. fill out function with needed materials for menu
+//       textEl &&
+//         (textEl.textContent =
+//           "moved a distance of " +
+//           Math.sqrt(
+//             (Math.pow(event.pageX - event.x0, 2) +
+//               Math.pow(event.pageY - event.y0, 2)) |
+//               0
+//           ).toFixed(2) +
+//           "px");
+//     }
+//   }
+// });
 
-//drag and drop code
-// target elements with the "draggable" class
-interact(".draggable").draggable({
-  // enable inertial throwing
-  inertia: true,
-  // keep the element within the area of it's parent
-  modifiers: [
-    interact.modifiers.restrictRect({
-      restriction: "parent",
-      endOnly: true
-    })
-  ],
-  // enable autoScroll
-  autoScroll: true,
+// function dragMoveListener(event) {
+//   var target = event.target;
+//   // keep the dragged position in the data-x/data-y attributes
+//   var x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
+//   var y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
 
-  listeners: {
-    // call this function on every dragmove event
-    move: dragMoveListener,
+//   // translate the element
+//   target.style.webkitTransform = target.style.transform =
+//     "translate(" + x + "px, " + y + "px)";
 
-    // call this function on every dragend event
-    end(event) {
-      var textEl = event.target.querySelector("p");
+//   // update the posiion attributes
+//   target.setAttribute("data-x", x);
+//   target.setAttribute("data-y", y);
+// }
 
-      textEl &&
-        (textEl.textContent =
-          "moved a distance of " +
-          Math.sqrt(
-            (Math.pow(event.pageX - event.x0, 2) +
-              Math.pow(event.pageY - event.y0, 2)) |
-              0
-          ).toFixed(2) +
-          "px");
-    }
-  }
-});
+// // this function is used later in the resizing and gesture demos
+// window.dragMoveListener = dragMoveListener;
 
-function dragMoveListener(event) {
-  var target = event.target;
-  // keep the dragged position in the data-x/data-y attributes
-  var x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
-  var y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+// /* The dragging code for '.draggable' from the demo above
+//  * applies to this demo as well so it doesn't have to be repeated. */
 
-  // translate the element
-  target.style.webkitTransform = target.style.transform =
-    "translate(" + x + "px, " + y + "px)";
+// // enable draggables to be dropped into this
+// interact(".dropzone").dropzone({
+//   // only accept elements matching this CSS selector
+//   accept: "#yes-drop",
+//   // Require a 75% element overlap for a drop to be possible
+//   overlap: 0.75,
 
-  // update the posiion attributes
-  target.setAttribute("data-x", x);
-  target.setAttribute("data-y", y);
-}
+//   // listen for drop related events:
 
-// this function is used later in the resizing and gesture demos
-window.dragMoveListener = dragMoveListener;
+//   ondropactivate: function (event) {
+//     // add active dropzone feedback
+//     event.target.classList.add("drop-active");
+//   },
+//   ondragenter: function (event) {
+//     var draggableElement = event.relatedTarget;
+//     var dropzoneElement = event.target;
 
-/* The dragging code for '.draggable' from the demo above
- * applies to this demo as well so it doesn't have to be repeated. */
+//     // feedback the possibility of a drop
+//     dropzoneElement.classList.add("drop-target");
+//     draggableElement.classList.add("can-drop");
+//     draggableElement.textContent = "Dragged in";
+//   },
+//   ondragleave: function (event) {
+//     // remove the drop feedback style
+//     event.target.classList.remove("drop-target");
+//     event.relatedTarget.classList.remove("can-drop");
+//     event.relatedTarget.textContent = "Dragged out";
+//   },
+//   ondrop: function (event) {
+//     event.relatedTarget.textContent = "Dropped";
+//   },
+//   ondropdeactivate: function (event) {
+//     // remove active dropzone feedback
+//     event.target.classList.remove("drop-active");
+//     event.target.classList.remove("drop-target");
+//   }
+// });
 
-// enable draggables to be dropped into this
-interact(".dropzone").dropzone({
-  // only accept elements matching this CSS selector
-  accept: "#yes-drop",
-  // Require a 75% element overlap for a drop to be possible
-  overlap: 0.75,
-
-  // listen for drop related events:
-
-  ondropactivate: function (event) {
-    // add active dropzone feedback
-    event.target.classList.add("drop-active");
-  },
-  ondragenter: function (event) {
-    var draggableElement = event.relatedTarget;
-    var dropzoneElement = event.target;
-
-    // feedback the possibility of a drop
-    dropzoneElement.classList.add("drop-target");
-    draggableElement.classList.add("can-drop");
-    draggableElement.textContent = "Dragged in";
-  },
-  ondragleave: function (event) {
-    // remove the drop feedback style
-    event.target.classList.remove("drop-target");
-    event.relatedTarget.classList.remove("can-drop");
-    event.relatedTarget.textContent = "Dragged out";
-  },
-  ondrop: function (event) {
-    event.relatedTarget.textContent = "Dropped";
-  },
-  ondropdeactivate: function (event) {
-    // remove active dropzone feedback
-    event.target.classList.remove("drop-active");
-    event.target.classList.remove("drop-target");
-  }
-});
-
-interact(".drag-drop").draggable({
-  inertia: true,
-  modifiers: [
-    interact.modifiers.restrictRect({
-      restriction: "parent",
-      endOnly: true
-    })
-  ],
-  autoScroll: true,
-  // dragMoveListener from the dragging demo above
-  listeners: { move: dragMoveListener }
-});
+// interact(".drag-drop").draggable({
+//   inertia: true,
+//   modifiers: [
+//     interact.modifiers.restrictRect({
+//       restriction: "parent",
+//       endOnly: true
+//     })
+//   ],
+//   autoScroll: true,
+//   // dragMoveListener from the dragging demo above
+//   listeners: { move: dragMoveListener }
+// });
