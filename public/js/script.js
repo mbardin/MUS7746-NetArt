@@ -114,14 +114,16 @@ function randomColor() { //gives random color when needed
     return color;
 }
 
+//these functions are used to adjust the parameters of the effect chain/sequence melody/synth. will be tied to object values.
+
 function map(inputY, yMin, yMax, xMin, xMax) {
     percent = (inputY - yMin) / (yMax - yMin);
     outputX = percent * (xMax - xMin) + xMin;
     return outputX;
 }
 
-//these functions are used to adjust the parameters of the effect chain/sequence melody/synth. will be tied to object values.
-function changeVerbTime(val) { //make a mapping function
+
+function changeVerbTime(val) {
     let newValue = map(val, 1, 255, 0, 10);
     reverb.decay = newValue;
 }
