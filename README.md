@@ -2,6 +2,10 @@
 
 This is the repo containing all of the code necessary for my browser-based project: _The Circle of Life_.
 
+You can access this project at either:
+life.matthewbardin.com
+https://main-the-cir-wq21bculyxpcnmxu-gtw.qovery.io/
+
 ## Program Note:
 
 Whether intentional or not, humans have a profound effect on their environment. This work take this effect to the extreme. By encouraging users to place various items in the webpage and alter their appearance the users are able to create a unique visual arrangement of basic polygon art. However, be careful how much you edit as each interaction has unexpected consequences that can change what the background music is doing. If you are too careless, you may turn the environment into something inhospitable that could take a long time before everything is comfortable again.
@@ -24,6 +28,3 @@ For more information about the composer visit his website
 [Matthew Bardin](http://matthewbardin.com)
 
 ---
-
-
-

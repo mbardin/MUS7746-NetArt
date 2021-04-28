@@ -169,7 +169,9 @@ function defaultFX() { //transitions back to default state after timer has gone 
         chorus.frequency.exponentialRampToValueAtTime(1, "+60"); //1
         chorus.depth = 0.1; //0.1
         distort.bits.linearRampToValueAtTime(16, "+600");
-        synth.volume.exponentialRampToValueAtTime(0, "+60"); //0
+        if (muteToggle = false) {
+            synth.volume.exponentialRampToValueAtTime(0, "+60"); //0
+        }
     }
 }
 
@@ -533,36 +535,36 @@ function changeAppearance() {
 let currentShape;
 //the following functions make the various additional shapes when the menu items are clicked on
 function makeSquare() {
-    console.log("you clicked on the square");
-    let squ = document.createElement("div");
-    squ.classList.add("square");
-    let area = document.getElementById("placeArea");
-    area.appendChild(squ);
-    squ.addEventListener("click", function(e) {
-        if (userState === "Edit") {
-            let shape = squ;
-            let shapeColor = [];
-            let r = document.getElementById("rSlide").value;
-            shapeColor.push(r);
-            let g = document.getElementById("gSlide").value;
-            shapeColor.push(g);
-            let b = document.getElementById("bSlide").value;
-            shapeColor.push(b);
-
-            shape.style.backgroundColor = `rgb(${shapeColor[0]}, ${shapeColor[1]}, ${shapeColor[2]})`;
-
-            changeVerbTime(r); //adjusts synth params based on slider values
-            changeDistortion(g);
-            changechorusSpeed(b);
-
-            for (let i = 0; i > 3; i++) {
-                shapeColor.pop();
-            }
-        }
-    });
-
-    currentShape = squ;
     if (userState === "Place") {
+        console.log("you clicked on the square");
+        let squ = document.createElement("div");
+        squ.classList.add("square");
+        let area = document.getElementById("placeArea");
+        area.appendChild(squ);
+        squ.addEventListener("click", function(e) {
+            if (userState === "Edit") {
+                let shape = squ;
+                let shapeColor = [];
+                let r = document.getElementById("rSlide").value;
+                shapeColor.push(r);
+                let g = document.getElementById("gSlide").value;
+                shapeColor.push(g);
+                let b = document.getElementById("bSlide").value;
+                shapeColor.push(b);
+
+                shape.style.backgroundColor = `rgb(${shapeColor[0]}, ${shapeColor[1]}, ${shapeColor[2]})`;
+
+                changeVerbTime(r); //adjusts synth params based on slider values
+                changeDistortion(g);
+                changechorusSpeed(b);
+
+                for (let i = 0; i > 3; i++) {
+                    shapeColor.pop();
+                }
+            }
+        });
+
+        currentShape = squ;
         let newSquare = document.getElementById("mySquare");
         //let color = shapeColor();
         //squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
@@ -600,35 +602,35 @@ function makeSquare() {
 }
 
 function makeCircle() {
-    console.log("you clicked on the circle");
-    let squ = document.createElement("div");
-    squ.classList.add("circle");
-    let area = document.getElementById("placeArea");
-    area.appendChild(squ);
-    squ.addEventListener("click", function(e) {
-        if (userState === "Edit") {
-            let shape = squ;
-            let shapeColor = [];
-            let r = document.getElementById("rSlide").value;
-            shapeColor.push(r);
-            let g = document.getElementById("gSlide").value;
-            shapeColor.push(g);
-            let b = document.getElementById("bSlide").value;
-            shapeColor.push(b);
-
-            shape.style.backgroundColor = `rgb(${shapeColor[0]}, ${shapeColor[1]}, ${shapeColor[2]})`;
-
-            changeVerbTime(r); //adjusts synth params based on slider values
-            changeDistortion(g);
-            changechorusSpeed(b);
-
-            for (let i = 0; i > 3; i++) {
-                shapeColor.pop();
-            }
-        }
-    });
-    currentShape = squ;
     if (userState === "Place") {
+        console.log("you clicked on the circle");
+        let squ = document.createElement("div");
+        squ.classList.add("circle");
+        let area = document.getElementById("placeArea");
+        area.appendChild(squ);
+        squ.addEventListener("click", function(e) {
+            if (userState === "Edit") {
+                let shape = squ;
+                let shapeColor = [];
+                let r = document.getElementById("rSlide").value;
+                shapeColor.push(r);
+                let g = document.getElementById("gSlide").value;
+                shapeColor.push(g);
+                let b = document.getElementById("bSlide").value;
+                shapeColor.push(b);
+
+                shape.style.backgroundColor = `rgb(${shapeColor[0]}, ${shapeColor[1]}, ${shapeColor[2]})`;
+
+                changeVerbTime(r); //adjusts synth params based on slider values
+                changeDistortion(g);
+                changechorusSpeed(b);
+
+                for (let i = 0; i > 3; i++) {
+                    shapeColor.pop();
+                }
+            }
+        });
+        currentShape = squ;
         let newSquare = document.getElementById("myCircle");
         //let color = shapeColor();
         // squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
@@ -665,35 +667,35 @@ function makeCircle() {
 }
 
 function makeParallel() {
-    console.log("you clicked on the parallelogram");
-    let squ = document.createElement("div");
-    squ.classList.add("parallelogram");
-    let area = document.getElementById("placeArea");
-    area.appendChild(squ);
-    squ.addEventListener("click", function(e) {
-        if (userState === "Edit") {
-            let shape = squ;
-            let shapeColor = [];
-            let r = document.getElementById("rSlide").value;
-            shapeColor.push(r);
-            let g = document.getElementById("gSlide").value;
-            shapeColor.push(g);
-            let b = document.getElementById("bSlide").value;
-            shapeColor.push(b);
-
-            shape.style.backgroundColor = `rgb(${shapeColor[0]}, ${shapeColor[1]}, ${shapeColor[2]})`;
-
-            changeVerbTime(r); //adjusts synth params based on slider values
-            changeDistortion(g);
-            changechorusSpeed(b);
-
-            for (let i = 0; i > 3; i++) {
-                shapeColor.pop();
-            }
-        }
-    });
-    currentShape = squ;
     if (userState === "Place") {
+        console.log("you clicked on the parallelogram");
+        let squ = document.createElement("div");
+        squ.classList.add("parallelogram");
+        let area = document.getElementById("placeArea");
+        area.appendChild(squ);
+        squ.addEventListener("click", function(e) {
+            if (userState === "Edit") {
+                let shape = squ;
+                let shapeColor = [];
+                let r = document.getElementById("rSlide").value;
+                shapeColor.push(r);
+                let g = document.getElementById("gSlide").value;
+                shapeColor.push(g);
+                let b = document.getElementById("bSlide").value;
+                shapeColor.push(b);
+
+                shape.style.backgroundColor = `rgb(${shapeColor[0]}, ${shapeColor[1]}, ${shapeColor[2]})`;
+
+                changeVerbTime(r); //adjusts synth params based on slider values
+                changeDistortion(g);
+                changechorusSpeed(b);
+
+                for (let i = 0; i > 3; i++) {
+                    shapeColor.pop();
+                }
+            }
+        });
+        currentShape = squ;
         let newSquare = document.getElementById("myParallel");
         //let color = shapeColor();
         //squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
@@ -730,14 +732,14 @@ function makeParallel() {
 }
 
 function makeTri() {
-    console.log("you clicked on the triangle");
-    let squ = document.createElement("div");
-    squ.classList.add("triangle-up");
-    let area = document.getElementById("placeArea");
-    area.appendChild(squ);
-
-    currentShape = squ;
     if (userState === "Place") {
+        console.log("you clicked on the triangle");
+        let squ = document.createElement("div");
+        squ.classList.add("triangle-up");
+        let area = document.getElementById("placeArea");
+        area.appendChild(squ);
+
+        currentShape = squ;
         let newSquare = document.getElementById("myTri");
         // let color = shapeColor();
         // squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
@@ -774,14 +776,14 @@ function makeTri() {
 }
 
 function makeLine() {
-    console.log("you clicked on the line");
-    let squ = document.createElement("div");
-    squ.classList.add("line");
-    let area = document.getElementById("placeArea");
-    area.appendChild(squ);
-
-    currentShape = squ;
     if (userState === "Place") {
+        console.log("you clicked on the line");
+        let squ = document.createElement("div");
+        squ.classList.add("line");
+        let area = document.getElementById("placeArea");
+        area.appendChild(squ);
+
+        currentShape = squ;
         let newSquare = document.getElementById("myLine");
         // let color = shapeColor();
         // squ.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
